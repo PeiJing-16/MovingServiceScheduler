@@ -43,7 +43,10 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-800 to-gray-900">
+    <div
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: 'url("/background.png")' }}
+    >
 
       {/* Main Content */}
       <div className="flex items-center justify-center min-h-[calc(100vh-100px)] p-4">
@@ -74,7 +77,7 @@ const Auth = () => {
               <p className="text-center text-gray-700 text-sm mt-4">
                 <button
                   type="button"
-                  onClick={() => alert('Admin Login coming soon')}
+                  onClick={() => navigate('/admin')}
                   className="text-blue-600 hover:underline bg-none border-none cursor-pointer p-0"
                 >
                   Admin Login
