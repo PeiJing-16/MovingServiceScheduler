@@ -7,8 +7,8 @@ const Profile = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    university: '',
     address: '',
+    phone: '',
   });
   const [loading, setLoading] = useState(false);
 
@@ -23,8 +23,8 @@ const Profile = () => {
         setFormData({
           name: response.data.name,
           email: response.data.email,
-          university: response.data.university || '',
           address: response.data.address || '',
+          phone: response.data.phone || '',
         });
       } catch (error) {
         alert('Failed to fetch profile. Please try again.');
@@ -56,41 +56,56 @@ const Profile = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto mt-20">
-      <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded">
-        <h1 className="text-2xl font-bold mb-4 text-center">Your Profile</h1>
-        <input
-          type="text"
-          placeholder="Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
+    <div className="min-h-screen bg-[#D7EFFF] flex items-center justify-center p-6">
+      <div className="relative w-full max-w-2xl rounded-xl bg-white/90 border border-[#c8e1fb] px-6 py-10 sm:px-10 overflow-hidden">
+        <img
+          src="/ProfileBg.png"
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute left-1/2 top-1/2 w-auto -translate-x-1/2 -translate-y-1/2 opacity-30"
         />
-        <input
-          type="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="University"
-          value={formData.university}
-          onChange={(e) => setFormData({ ...formData, university: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Address"
-          value={formData.address}
-          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-          className="w-full mb-4 p-2 border rounded"
-        />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
-          {loading ? 'Updating...' : 'Update Profile'}
-        </button>
-      </form>
+        <div className="relative">
+          <h1 className="text-3xl font-semibold text-center text-[#0d2440] mb-8 tracking-wide">
+            User Profile
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <input
+              type="text"
+              placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
+            />
+            <input
+              type="text"
+              placeholder="Address"
+              value={formData.address}
+              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
+            />
+            <input
+              type="text"
+              placeholder="Phone"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
+            />
+            <button
+              type="submit"
+              className="w-full rounded-xl bg-[#C1D8F0] text-black font-semibold py-3 hover:bg-[#93A9C0] transition focus:outline-none focus:ring-2 focus:ring-[#6aa7ff]"
+            >
+              {loading ? 'Updating...' : 'Update Profile'}
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
