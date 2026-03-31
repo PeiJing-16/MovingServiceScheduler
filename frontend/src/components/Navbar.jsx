@@ -11,8 +11,11 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
-      <Link to="/" className="text-2xl font-bold">Moving Service Scheduler System</Link>
+    <nav className="bg-[#142C3E] text-white p-4 flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-2">
+        <img src="/Logo.png" alt="Logo" className="h-12 w-15" />
+        <span className="text-2xl font-bold">Moving Service Scheduler System</span>
+      </Link>
       <div>
         {user ? (
           <>
