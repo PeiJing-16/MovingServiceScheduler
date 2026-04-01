@@ -74,35 +74,37 @@ const Profile = () => {
               placeholder="Name"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
+              className="w-full p-3 rounded-xl bg-[#C1D8F0] drop-shadow-lg border-2 border-[#C1D8F0] focus:outline-none focus:border-[#93A9C0]"
             />
             <input
               type="email"
               placeholder="Email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
+              className="w-full p-3 rounded-xl bg-[#C1D8F0] drop-shadow-lg border-2 border-[#C1D8F0] focus:outline-none focus:border-[#93A9C0]"
             />
             <input
               type="text"
               placeholder="Address"
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
-            />
+              className="w-full p-3 rounded-xl bg-[#C1D8F0] drop-shadow-lg border-2 border-[#C1D8F0] focus:outline-none focus:border-[#93A9C0]"
+              />
             <input
               type="text"
               placeholder="Phone"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-black"
-            />
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-[#C1D8F0] text-black font-semibold py-3 hover:bg-[#93A9C0] transition focus:outline-none focus:ring-2 focus:ring-[#6aa7ff]"
-            >
+              className="w-full p-3 rounded-xl bg-[#C1D8F0] drop-shadow-lg border-2 border-[#C1D8F0] focus:outline-none focus:border-[#93A9C0]"
+              />
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="w-48 rounded-full bg-[#C1D8F0] text-black font-semibold py-3 hover:bg-[#93A9C0] transition drop-shadow-lg"
+              >
               {loading ? 'Updating...' : 'Update Profile'}
-            </button>
+              </button>
+            </div>
           </form>
         </div>
       </div>
