@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
 const Profile = () => {
-  const { user } = useAuth(); // Access user token from context
+  const { user, logout } = useAuth(); // Access user token from context
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,6 +13,7 @@ const Profile = () => {
     phone: '',
   });
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     // Fetch profile data from the backend
@@ -48,6 +51,26 @@ const Profile = () => {
       alert('Failed to update profile. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm('Are you sure you want to delete your account? All your data will be permanently removed.');
+    if (!confirmed) return;
+
+    setDeleting(true);
+    try {
+      await axiosInstance.delete('/api/auth/profile', {
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      alert('Your account has been deleted.');
+      logout();
+      navigate('/register');
+    } catch (error) {
+      const message = error.response?.data?.message || 'Failed to delete account. Please try again.';
+      alert(message);
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -97,7 +120,7 @@ const Profile = () => {
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               className="w-full p-3 rounded-xl bg-[#C1D8F0] drop-shadow-lg border-2 border-[#C1D8F0] focus:outline-none focus:border-[#93A9C0]"
               />
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-6">
               <button
                 type="submit"
                 className="w-48 rounded-full bg-[#C1D8F0] text-black font-semibold py-3 hover:bg-[#93A9C0] transition drop-shadow-lg"
@@ -106,6 +129,16 @@ const Profile = () => {
               </button>
             </div>
           </form>
+          <div className="flex justify-center mt-6">
+            <button
+              type="button"
+              onClick={handleDeleteAccount}
+              className="w-48 rounded-full bg-[#864C69] text-white font-semibold py-3 hover:bg-[#926d8d] transition drop-shadow-lg disabled:opacity-60"
+              disabled={deleting}
+            >
+              {deleting ? 'Deleting...' : 'Delete Account'}
+            </button>
+          </div>
         </div>
       </div>
     </div>
