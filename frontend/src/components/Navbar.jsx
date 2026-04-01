@@ -26,7 +26,10 @@ const Navbar = () => {
               Profile
             </Link>
             <Link to="/bookings/create" className="mr-4">
-              Create Booking
+              Get Quote
+            </Link>
+            <Link to="/bookings/view/user" className="mr-4">
+              View Bookings
             </Link>
             <button
               onClick={handleLogout}
