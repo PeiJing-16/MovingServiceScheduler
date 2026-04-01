@@ -19,21 +19,18 @@ const Navbar = () => {
       <div>
         {user ? (
           <>
-            <Link to="/tasks" className="mr-4">
-              CRUD
-            </Link>
-            <Link to="/profile" className="mr-4">
+            <Link to="/profile" className="mr-4 font-medium">
               Profile
             </Link>
-            <Link to="/bookings/create" className="mr-4">
+            <Link to="/bookings/create" className="mr-4 font-medium">
               Get Quote
             </Link>
-            <Link to="/bookings/view/user" className="mr-4">
+            <Link to="/bookings/view/user" className="mr-4 font-medium">
               View Bookings
             </Link>
             <button
               onClick={handleLogout}
-              className="bg-red-500 px-4 py-2 rounded hover:bg-red-700"
+              className="px-4 py-2 rounded hover:bg-red-700"
             >
               Logout
             </button>
