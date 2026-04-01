@@ -21,7 +21,7 @@ const Auth = () => {
     try {
       const response = await axiosInstance.post('/api/auth/login', loginData);
       login(response.data);
-      navigate('/tasks');
+      navigate('/bookings/create');
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message || 'Login failed';
       alert(`Login failed: ${errorMessage}`);

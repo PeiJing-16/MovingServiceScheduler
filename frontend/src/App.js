@@ -4,6 +4,7 @@ import Auth from './pages/Auth';
 import AdminLogin from './pages/AdminLogin';
 import Profile from './pages/Profile';
 import Tasks from './pages/Tasks';
+import CreateBooking from './pages/CreateBooking';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/admin" element={<AdminLogin />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/tasks" element={<Tasks />} />
+        <Route path="/bookings/create" element={<CreateBooking />} />
       </Routes>
     </Router>
   );
