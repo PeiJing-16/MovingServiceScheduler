@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmed = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
+    const confirmed = window.confirm('Are you sure you want to delete your account? All your data will be permanently removed.');
     if (!confirmed) return;
 
     setDeleting(true);
