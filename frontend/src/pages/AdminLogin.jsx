@@ -1,11 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-
-const ADMIN_CREDENTIALS = {
-  username: process.env.REACT_APP_ADMIN_USERNAME || 'admin',
-  password: process.env.REACT_APP_ADMIN_PASSWORD || 'admin123',
-};
+import axiosInstance from '../axiosConfig';
 
 const AdminLogin = () => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -13,14 +9,16 @@ const AdminLogin = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.username === ADMIN_CREDENTIALS.username && form.password === ADMIN_CREDENTIALS.password) {
-      login({ username: form.username, role: 'admin', isAdmin: true });
+    try {
+      const response = await axiosInstance.post('/api/auth/admin/login', form);
+      login({ ...response.data, isAdmin: true });
       setError('');
-      navigate('/tasks');
-    } else {
-      setError('Invalid admin username or password');
+      navigate('/admin/bookings');
+    } catch (err) {
+      const message = err.response?.data?.message || 'Invalid admin username or password';
+      setError(message);
     }
   };
 

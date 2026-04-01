@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Tasks from './pages/Tasks';
 import CreateBooking from './pages/CreateBooking';
 import UserViewBooking from './pages/UserViewBooking';
+import AdminBookings from './pages/AdminBookings';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/bookings/create" element={<CreateBooking />} />
         <Route path="/bookings/view/user" element={<UserViewBooking />} />
+        <Route path="/admin/bookings" element={<AdminBookings />} />
       </Routes>
     </Router>
   );
