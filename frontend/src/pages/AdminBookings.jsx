@@ -43,6 +43,13 @@ const AdminBookings = () => {
     fetchAllBookings();
   }, [user]);
 
+  const filteredBookings = useMemo(() => {
+    if (!user?.isAdmin) {
+      return [];
+    }
+    return bookings.filter((booking) => statusMatches(booking, activeTab));
+  }, [bookings, activeTab, user]);
+
   if (!user?.isAdmin) {
     return (
       <div className="min-h-screen bg-[#D7EFFF] flex items-center justify-center p-6 text-center">
@@ -61,11 +68,6 @@ const AdminBookings = () => {
       </div>
     );
   }
-
-  const filteredBookings = useMemo(
-    () => bookings.filter((booking) => statusMatches(booking, activeTab)),
-    [bookings, activeTab]
-  );
 
   const handleCardAction = (type) => {
     alert(`${type} action coming soon.`);
