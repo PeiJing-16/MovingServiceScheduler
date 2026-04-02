@@ -67,7 +67,7 @@ const Profile = () => {
       logout();
       navigate('/register');
     } catch (error) {
-      const message = error.response?.data?.message || 'Failed to delete account. Please try again.';
+      const message = error.response?.data?.message || 'Failed to delete account. Please try again later.';
       alert(message);
     } finally {
       setDeleting(false);
