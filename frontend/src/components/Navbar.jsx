@@ -27,9 +27,9 @@ const Navbar = () => {
               <Link to="/admin/services" className="font-medium hover:underline">
                 Service
               </Link>
-              <button className="font-medium text-white/80 cursor-not-allowed" title="Coming soon">
+              <Link to="/admin/staff" className="font-medium hover:underline">
                 Staff
-              </button>
+              </Link>
               <button className="font-medium text-white/80 cursor-not-allowed" title="Coming soon">
                 Vehicle
               </button>
