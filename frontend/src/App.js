@@ -7,6 +7,8 @@ import Tasks from './pages/Tasks';
 import CreateBooking from './pages/CreateBooking';
 import UserViewBooking from './pages/UserViewBooking';
 import AdminBookings from './pages/AdminBookings';
+import AdminServices from './pages/AdminServices';
+import AdminAddService from './pages/AdminAddService';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/bookings/create" element={<CreateBooking />} />
         <Route path="/bookings/view/user" element={<UserViewBooking />} />
         <Route path="/admin/bookings" element={<AdminBookings />} />
+        <Route path="/admin/services" element={<AdminServices />} />
+        <Route path="/admin/services/add" element={<AdminAddService />} />
       </Routes>
     </Router>
   );
