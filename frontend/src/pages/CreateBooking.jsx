@@ -3,17 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axiosInstance from '../axiosConfig';
 
-const serviceTypes = [
-  'Full House Move',
-  'Office Relocation',
-  'Single Item Delivery',
-  'Packing Service',
-];
-
 const propertyTypes = ['Apartment', 'Townhouse', 'Detached House', 'Office', 'Storage'];
 
 const initialState = {
-  serviceType: serviceTypes[0],
+  serviceType: '',
   propertyType: propertyTypes[0],
   pickupAddress: '',
   destinationAddress: '',
@@ -29,6 +22,8 @@ const CreateBooking = () => {
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [serviceOptions, setServiceOptions] = useState([]);
+  const [serviceLoading, setServiceLoading] = useState(true);
 
   useEffect(() => {
     if (location.state?.booking) {
@@ -46,6 +41,28 @@ const CreateBooking = () => {
       navigate(location.pathname, { replace: true, state: null });
     }
   }, [location, navigate]);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      setServiceLoading(true);
+      try {
+        const response = await axiosInstance.get('/api/services');
+        setServiceOptions(response.data);
+        if (!editingId && response.data.length > 0) {
+          setFormData((prev) => ({
+            ...prev,
+            serviceType: prev.serviceType || response.data[0].name,
+          }));
+        }
+      } catch (error) {
+        alert('Failed to load services. Please try again later.');
+      } finally {
+        setServiceLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, [editingId]);
 
   if (!user) {
     return <div className="text-center mt-20">Please log in to create a booking.</div>;
@@ -71,7 +88,8 @@ const CreateBooking = () => {
         });
         alert('Booking submitted! We will email a confirmation shortly.');
       }
-      setFormData(initialState);
+      const defaultService = serviceOptions[0]?.name || '';
+      setFormData({ ...initialState, serviceType: defaultService });
       setEditingId(null);
     } catch (error) {
       alert('Failed to save booking. Please try again.');
@@ -100,12 +118,17 @@ const CreateBooking = () => {
                 value={formData.serviceType}
                 onChange={handleChange}
                 className="w-full rounded-xl bg-[#C1D8F0] drop-shadow-lg py-3 px-6 text-[#0d2440] focus:outline-none focus:ring-2 focus:ring-[#6aa7ff]"
+                disabled={serviceLoading || serviceOptions.length === 0}
+                required
               >
-                {serviceTypes.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
+                {serviceLoading && <option>Loading services...</option>}
+                {!serviceLoading && serviceOptions.length === 0 && <option value="">No services available</option>}
+                {!serviceLoading &&
+                  serviceOptions.map((service) => (
+                    <option key={service._id} value={service.name}>
+                      {service.name}
+                    </option>
+                  ))}
               </select>
               <select
                 name="propertyType"
